@@ -46,8 +46,8 @@ def load_model(model):
 
 ######################
 # Load data
-path_data = '/' #'dirname(os.getcwd()) + '/aica/ClimateBERT/' #+ '/aica/EPD_ETL/'
-path = '/' # dirname(os.getcwd()) + '/aica/ClimateBERT/'
+path_data = '' #'dirname(os.getcwd()) + '/aica/ClimateBERT/' #+ '/aica/EPD_ETL/'
+path = '' # dirname(os.getcwd()) + '/aica/ClimateBERT/'
 file_name_n = '4_epds_epdnorway_kg.csv'
 file_name_o = '4_epds_oekobaudat_kg.csv'
 df1 = pd.read_csv(path_data + file_name_n)
