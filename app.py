@@ -15,7 +15,7 @@ from sklearn.preprocessing import OneHotEncoder
 def cosine_similarity(a, b):
     return 1 - cosine(a, b)
 
-path = dirname(os.getcwd()) + '/aica/ClimateBERT/'
+#path = dirname(os.getcwd()) + '/aica/ClimateBERT/'
 
 #climateBERTmodel
 class climateBERT(nn.Module):
@@ -40,13 +40,14 @@ class climateBERT(nn.Module):
         return out
 
 def load_model(model):
-    model.load_state_dict(torch.load(path + 'web_pred/stored_model.pt', map_location=torch.device('cpu')))
+    path = '/' # path + 'web_pred/'
+    model.load_state_dict(torch.load(path + 'stored_model.pt', map_location=torch.device('cpu')))
     return model
 
 ######################
 # Load data
-path_data = dirname(os.getcwd()) + '/aica/ClimateBERT/' #+ '/aica/EPD_ETL/'
-path = dirname(os.getcwd()) + '/aica/ClimateBERT/'
+path_data = '/' #'dirname(os.getcwd()) + '/aica/ClimateBERT/' #+ '/aica/EPD_ETL/'
+path = '/' # dirname(os.getcwd()) + '/aica/ClimateBERT/'
 file_name_n = '4_epds_epdnorway_kg.csv'
 file_name_o = '4_epds_oekobaudat_kg.csv'
 df1 = pd.read_csv(path_data + file_name_n)
