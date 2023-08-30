@@ -124,9 +124,26 @@ def comb_bert(text, category1, category2, category3, geo):
 
 st.title('Carbon footprint prediction')
 
+# Create category selection options depending on previous selection
+cat1 = df.Cat_H1.values
+cat1_unique = np.unique(cat1.astype(str))
+cat2_dict = {}
+for cat1_temp in cat1_unique:
+    cat2_temp = df[df['Cat_H1']==cat1_temp].Cat_H2.values
+    cat2_unique_temp = np.unique(cat2_temp.astype(str))
+    cat2_dict[cat1_temp] = cat2_unique_temp
+
+cat2 = df.Cat_H2.values
+cat2_unique = np.unique(cat2.astype(str))
+cat3_dict = {}
+for cat2_temp in cat2_unique:
+    cat3_temp = df[df['Cat_H2']==cat2_temp].Cat_H3.values
+    cat3_unique_temp = np.unique(cat3_temp.astype(str))
+    cat3_dict[cat2_temp] = cat3_unique_temp
+
 category1 = np.array([st.selectbox('Select category 1', cat1_unique, key='cat1')])
-category2 = np.array([st.selectbox('Select category 2', cat2_unique, key='cat2')])
-category3 = np.array([st.selectbox('Select category 3', cat3_unique, key='cat3')])
+category2 = np.array([st.selectbox('Select category 2', cat2_dict[category1[0]], key='cat2')])
+category3 = np.array([st.selectbox('Select category 3', cat3_dict[category2[0]], key='cat3')])
 geo = np.array([st.selectbox('Select geography', geo_unique, key='geo')])
 
 input_name = st.text_input('Write name of material:')
