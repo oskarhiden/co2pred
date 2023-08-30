@@ -40,7 +40,7 @@ class climateBERT(nn.Module):
         return out
 
 def load_model(model):
-    path = '/' # path + 'web_pred/'
+    path = '' # path + 'web_pred/'
     model.load_state_dict(torch.load(path + 'stored_model.pt', map_location=torch.device('cpu')))
     return model
 
