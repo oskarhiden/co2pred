@@ -123,6 +123,34 @@ def comb_bert(text, category1, category2, category3, geo):
 
 
 st.title('Carbon footprint prediction')
+# category translation
+cat1_translation = pd.read_excel(path + 'cat_translate.xlsx', sheet_name='Cat1') 
+tyska = cat1_translation['Tyska'].values
+svenska = cat1_translation['Svenska'].values
+cat1_sv_to = {}
+cat1_ty_to = {}
+for i in range(len(tyska)):
+    cat1_ty_to[tyska[i]] = svenska[i]
+    cat1_sv_to[svenska[i]] = tyska[i]
+
+cat2_translation = pd.read_excel(path + 'cat_translate.xlsx', sheet_name='Cat2')
+tyska = cat2_translation['Tyska'].values
+svenska = cat2_translation['Svenska'].values
+cat2_sv_to = {}
+cat2_ty_to = {}
+for i in range(len(tyska)):
+    cat2_ty_to[tyska[i]] = svenska[i]
+    cat2_sv_to[svenska[i]] = tyska[i]
+
+cat3_translation = pd.read_excel(path + 'cat_translate.xlsx', sheet_name='Cat3')
+tyska = cat3_translation['Tyska'].values
+svenska = cat3_translation['Svenska'].values
+cat3_sv_to = {}
+cat3_ty_to = {}
+for i in range(len(tyska)):
+    cat3_ty_to[tyska[i]] = svenska[i]
+    cat3_sv_to[svenska[i]] = tyska[i]
+
 
 # Create category selection options depending on previous selection
 cat1 = df.Cat_H1.values
@@ -141,9 +169,25 @@ for cat2_temp in cat2_unique:
     cat3_unique_temp = np.unique(cat3_temp.astype(str))
     cat3_dict[cat2_temp] = cat3_unique_temp
 
+# translate
+#cat1_unique = [cat1_ty_to[cat1_unique[i]] for i in range(len(cat1_unique))]
+cat1_unique = [cat1_ty_to[cat1_unique[i]] if cat1_unique[i] != 'nan' else 'nan' for i in range(len(cat1_unique))]
+
 category1 = np.array([st.selectbox('Select category 1', cat1_unique, key='cat1')])
-category2 = np.array([st.selectbox('Select category 2', cat2_dict[category1[0]], key='cat2')])
-category3 = np.array([st.selectbox('Select category 3', cat3_dict[category2[0]], key='cat3')])
+# german choice
+category1 = np.array([cat1_sv_to[category1[0]]])
+# translate cat 2
+cat2_choices = cat2_dict[category1[0]] # in german
+cat2_choices = [cat2_ty_to[cat2_choices[i]] if cat2_choices[i] != 'nan' else 'nan' for i in range(len(cat2_choices))]
+category2 = np.array([st.selectbox('Select category 2', cat2_choices, key='cat2')])
+# german choice
+category2 = np.array([cat2_sv_to[category2[0]]])
+# translate cat 3
+cat3_choices = cat3_dict[category2[0]] # in german
+cat3_choices = [cat3_ty_to[cat3_choices[i]] if cat3_choices[i] != 'nan' else 'nan' for i in range(len(cat3_choices))]
+category3 = np.array([st.selectbox('Select category 3', cat3_choices, key='cat3')])
+# german choice
+category3 = np.array([cat3_sv_to[category3[0]]])
 geo = np.array([st.selectbox('Select geography', geo_unique, key='geo')])
 
 input_name = st.text_input('Write name of material:')
