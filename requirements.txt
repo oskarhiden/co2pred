@@ -3,3 +3,4 @@ numpy
 pandas
 scipy
 sentence_transformers
+openpyxl
