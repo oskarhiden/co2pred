@@ -121,7 +121,7 @@ def comb_bert(text, category1, category2, category3, geo):
 
 
 
-st.title('SBERT prediction of CO2')
+st.title('Carbon footprint prediction')
 
 category1 = np.array([st.selectbox('Select category 1', cat1_unique, key='cat1')])
 category2 = np.array([st.selectbox('Select category 2', cat2_unique, key='cat2')])
